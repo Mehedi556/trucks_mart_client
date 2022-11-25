@@ -1,18 +1,40 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../Contexts/AuthProvider';
+import truck from '../../../assets/truck.png'
 
 const Navbar = () => {
-    const menuItems = <>
+  const { logOut , user } = useContext(AuthContext);
 
-    <li><Link to="/">Home</Link></li>
-    <li><Link to="/blog">Blog</Link></li>
-    <li><Link to="/dashboard">Dashboard</Link></li>
-    <li><Link to="/login">Login</Link></li>
-    <li><Link to="/register">Register</Link></li>
-      
-  </>
+  const handleLogOut = () => {
+    logOut()
+    .then(() => {})
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
+    const menuItems = <>
+    <li className='font-bold'><Link to="/">Home</Link></li>
+    <li className='font-bold'><Link to="/blog">Blog</Link></li>
+    <li className='font-bold'><Link to="/dashboardLayout/dashboard">Dashboard</Link></li>
+    {
+      user?.uid ? 
+      <li className='font-bold'><button onClick={handleLogOut}> Logout</button></li>
+      :
+      <li className='font-bold'><Link to="/login">Login</Link></li>
+    }
+    
+    
+  </>;
+
+
+
+
+
+
     return (
-        <div style={{backgroundColor: "#ECF4E7"}} className="navbar w-10/12 mx-auto">
+        <div style={{backgroundColor: "#ECF4E7"}} className="navbar py-5 w-10/12 mx-auto">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -22,7 +44,10 @@ const Navbar = () => {
               {menuItems}
             </ul>
           </div>
-          <a className="btn btn-ghost normal-case text-xl">SalesMart</a>
+          <div className='flex items-center'>
+            <img className='w-[50px] ml-5' src={truck} alt="" />
+          <a className="ml-2 font-bold text-2xl normal-case text-xl">TrucksMart</a>
+          </div>
         </div>
         <div className="navbar-end hidden lg:flex">
           <ul className="menu menu-horizontal p-0">

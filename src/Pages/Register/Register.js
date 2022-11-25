@@ -1,13 +1,42 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { AuthContext } from '../../Contexts/AuthProvider';
+import { FacebookAuthProvider } from 'firebase/auth';
 
 const Register = () => {
   const { register , handleSubmit ,  formState: { errors } } = useForm();
     const [error , setError] = useState('');
+    const navigate = useNavigate();
+    const facebookProvider = new FacebookAuthProvider();
+    const {createUser , signUpFacebook} = useContext(AuthContext);
+
 
     const handleSignup = (data) => {
       console.log(data)
+      createUser(data.email , data.password)
+      .then(result => {
+        const user = result.user;
+        console.log(user);
+        navigate('/')
+        setError('');
+    }).catch(error => {
+      console.error(error)
+      setError(error.message)
+    })
+  }
+
+
+  
+  const handleFacebook = () => {
+    signUpFacebook(facebookProvider)
+    .then(result => {
+      const user = result.user;
+      console.log(user);
+  }).catch(error => {
+    console.error(error)
+    setError(error.message)
+  })
   }
 
     return (
@@ -30,6 +59,21 @@ const Register = () => {
       </label>
       <input {...register("name" , { required: "Name is required" } )} type="text"  placeholder="Name" className="input input-bordered" required/>
     </div>
+
+
+    <div className="form-control w-full max-w-xs">
+            <label className="label">
+              <span className="label-text">Select Your Purpose</span>
+            </label>
+
+            <select
+            {...register('role')}
+             className="select input-bordered w-full max-w-xs">
+                    <option value={"Buyer"}>Buyer</option>
+                    <option value={"Seller"}>Seller</option>
+                </select>
+
+          </div>
   
   
   
@@ -59,7 +103,7 @@ const Register = () => {
   
     <div className="form-control mt-6">
       <button className="btn btn-primary text-black">Register</button>
-      <button className="btn mt-3 btn-outline btn-info text-black">Continue with Facebook</button>
+      <button onClick={handleFacebook} className="btn mt-3 btn-outline btn-info text-black">Continue with Facebook</button>
     </div>
   </div>
   </div>

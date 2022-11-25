@@ -1,14 +1,47 @@
-import React, { useState } from 'react';
+import { FacebookAuthProvider } from 'firebase/auth';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../Contexts/AuthProvider';
 
 const Login = () => {
     const { register , handleSubmit ,  formState: { errors } } = useForm();
+    const navigate = useNavigate();
+    const location = useLocation();
     const [error , setError] = useState('');
+    const { signUpFacebook , signIn } = useContext(AuthContext);
+    const facebookProvider = new FacebookAuthProvider();
+
+    const from = location.state?.from?.pathname || '/';
 
     const handleLogin = (data) => {
       console.log(data)
+      signIn(data.email , data.password)
+      .then(result => {
+        const user = result.user;
+        console.log(user);
+        navigate(from, { replace : true });
+    }).catch(error => {
+      console.error(error)
+      setError(error.message)
+    })
   }
+  const handleFacebook = () => {
+    signUpFacebook(facebookProvider)
+    .then(result => {
+      const user = result.user;
+      console.log(user);
+  }).catch(error => {
+    console.error(error)
+    setError(error.message)
+  })
+  }
+
+
+
+
+
+
     return (
         <form style={{backgroundColor: "#ECF4E7"}} onSubmit={handleSubmit(handleLogin)} className='rounded-2xl mx-auto w-10/12'>
         <div className="hero my-24 p-5 rounded-xl w-full">
@@ -48,7 +81,7 @@ const Login = () => {
   
     <div className="form-control mt-6">
       <button className="btn btn-primary text-black">Login</button>
-      <button className="btn mt-3 btn-outline btn-info text-black">Continue with Facebook</button>
+      <button onClick={handleFacebook} className="btn mt-3 btn-outline btn-info text-black">Continue with Facebook</button>
     </div>
   </div>
   </div>
