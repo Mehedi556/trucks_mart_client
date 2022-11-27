@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { DotLoader } from 'react-spinners';
 import { AuthContext } from '../../Contexts/AuthProvider';
+import Loader from '../../Pages/Shared/Loader/Loader';
 
 
 const PrivetRoute = ({children}) => {
@@ -10,9 +11,7 @@ const PrivetRoute = ({children}) => {
     const location = useLocation();
 
     if(loading){
-        return <div className='flex items-center justify-center'>
-                    <DotLoader color="#36d7b7" />
-                </div>
+        return <Loader></Loader>
     }
 
 

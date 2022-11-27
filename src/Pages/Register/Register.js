@@ -9,7 +9,7 @@ const Register = () => {
     const [error , setError] = useState('');
     const navigate = useNavigate();
     const facebookProvider = new FacebookAuthProvider();
-    const {createUser , signUpFacebook} = useContext(AuthContext);
+    const {createUser , signUpFacebook , updateUser} = useContext(AuthContext);
 
 
     const handleSignup = (data) => {
@@ -17,12 +17,38 @@ const Register = () => {
       createUser(data.email , data.password)
       .then(result => {
         const user = result.user;
-        console.log(user);
+        setUser(data.name , data.email , data.role);
+        console.log(data.name , data.email , data.role);
+
+        const userInformation = {
+          displayName: data.name
+        }
+        updateUser(userInformation)
+        .then(() => {})
+        .catch(error => console.log(error));
+
+
+
         navigate('/')
         setError('');
     }).catch(error => {
       console.error(error)
       setError(error.message)
+    })
+  }
+
+  const setUser = (name , email , role) => {
+    const user = {name , email , role};
+    fetch('http://localhost:5000/users' , {
+      method: 'POST',
+      headers: {
+        'content-type':'application/json'
+      },
+      body: JSON.stringify(user)
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
     })
   }
 
