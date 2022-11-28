@@ -2,12 +2,14 @@ import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { AuthContext } from '../../../Contexts/AuthProvider';
 
 
 const AddProduct = () => {
   const { register , handleSubmit ,  formState: { errors } } = useForm();
     const [error , setError] = useState('');
     const [images , setImages] = useState("");
+    const {user} = useContext(AuthContext);
     // console.log(images);
 
     const navigate = useNavigate();
@@ -31,7 +33,7 @@ const AddProduct = () => {
         // if(imageData.success){
             // console.log(imageData.data.url);
             const picture = imageData.data.url;
-            setProduct(picture , data.category_id , data.condition , data.description , data.location , data.mobile_number , data.name , data.original_price , data.resale_price , data.sellers_name , data.year_of_purchase , data.years_of_use);
+            setProduct( picture , data.category_id , data.condition , data.description , data.location , data.mobile_number , data.name , data.original_price , data.resale_price , data.sellers_name , data.year_of_purchase , data.years_of_use , user?.email);
         // }
       })
 
@@ -43,7 +45,7 @@ const AddProduct = () => {
    
   }
 
-  const setProduct = (image , category_id , condition , description , location , mobile_number , name , original_price , resale_price , sellers_name , year_of_purchase , years_of_use) => {
+  const setProduct = (image , category_id , condition , description , location , mobile_number , name , original_price , resale_price , sellers_name , year_of_purchase , years_of_use , user_email) => {
     const productDetails = {
         image,
         category_id ,
@@ -56,8 +58,11 @@ const AddProduct = () => {
                resale_price ,
                 sellers_name ,
                  year_of_purchase ,
-                  years_of_use
+                  years_of_use,
+                  user_email
                 };
+
+
     fetch('http://localhost:5000/productDetails' , {
       method: 'POST',
       headers: {
@@ -92,6 +97,18 @@ const AddProduct = () => {
 
 
 
+
+
+  <div className="form-control">
+        <label className="label">
+            <span className="label-text">Your Email</span>
+        </label>
+      
+      <input {...register("email")} type="email"   className="input input-bordered" defaultValue={user?.email} readOnly/>
+    </div>
+
+
+ {/* ------------------- */}
 
 
   <div className="form-control">
