@@ -13,7 +13,7 @@ const MainCategory = () => {
   // console.log(details);
 
   // useEffect( async () => {
-  //   const res = await fetch(`https://server-site-lake.vercel.app/productDetails/${}`)
+  //   const res = await fetch(`http://localhost:5000/productDetails/${}`)
   // } , [])
 
   if (loading) {

@@ -3,24 +3,36 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Contexts/AuthProvider';
 import Loader from '../../Shared/Loader/Loader';
+import NoProducts from './NoProducts';
 
 const MyProducts = () => {
   const { user } = useContext(AuthContext);
 
-  const url = `https://server-site-lake.vercel.app/productDetails?email=${user?.email}`;
+  const url = `http://localhost:5000/productDetails?email=${user?.email}`;
 
-  const { data: products = [], isLoading } = useQuery({
+  const { data: products = [], isLoading , refetch } = useQuery({
     queryKey: ['productDetails', user?.email],
     queryFn: async () => {
-      const res = await fetch(url);
+      const res = await fetch(url , {
+        // headers: {
+        //   authorization: `bearer ${localStorage.getItem('accessToken')}`
+        // }
+      });
       const data = await res.json();
       console.log(data);
+      
       return data;
     },
   });
 
   if (isLoading) {
     return <Loader></Loader>;
+  }else if( products.length === 0 ){
+    return <NoProducts></NoProducts>
+  }
+    
+  if(products.length > 0){
+    refetch()
   }
 
   return (

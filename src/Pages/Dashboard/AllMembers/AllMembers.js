@@ -17,7 +17,7 @@ const AllMembers = () => {
     queryKey: ['members'],
     queryFn: async () => {
       try {
-        const res = await fetch('https://server-site-lake.vercel.app/users', {
+        const res = await fetch('http://localhost:5000/users', {
           method: 'GET',
         });
         const data = await res.json();
@@ -29,7 +29,7 @@ const AllMembers = () => {
   });
 
   const handleDelete = member => {
-    fetch(`https://server-site-lake.vercel.app/members/${member?._id}`, {
+    fetch(`http://localhost:5000/members/${member?._id}`, {
       method: 'DELETE',
     })
       .then(res => res.json())

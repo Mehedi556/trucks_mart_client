@@ -43,9 +43,7 @@ export const router = createBrowserRouter([
           </PrivetRoute>
         ),
         loader: ({ params }) =>
-          fetch(
-            `https://server-site-lake.vercel.app/productDetails/${params.id}`
-          ),
+          fetch(`http://localhost:5000/productDetails/${params.id}`),
       },
     ],
   },

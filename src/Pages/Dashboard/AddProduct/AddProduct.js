@@ -53,7 +53,8 @@ const AddProduct = () => {
         // }
       });
 
-    navigate('/');
+    navigate('/dashboardLayout/myproducts');
+    toast.success('Please Refresh the page to see your added product..')
     setError('');
   };
 
@@ -88,7 +89,7 @@ const AddProduct = () => {
       user_email,
     };
 
-    fetch('https://server-site-lake.vercel.app/productDetails', {
+    fetch('http://localhost:5000/productDetails', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',

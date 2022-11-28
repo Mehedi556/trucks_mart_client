@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../Contexts/AuthProvider';
 import { FacebookAuthProvider } from 'firebase/auth';
+import toast from 'react-hot-toast';
+import useToken from '../../Hookes/UseToken';
 
 const Register = () => {
   const {
@@ -12,25 +14,33 @@ const Register = () => {
   } = useForm();
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const [userEmail , setUserEmail] = useState('');
+  const [token] = useToken(userEmail);
   const facebookProvider = new FacebookAuthProvider();
   const { createUser, signUpFacebook, updateUser } = useContext(AuthContext);
+
+  // if(token){
+  //   navigate('/');
+  // }
 
   const handleSignup = data => {
     console.log(data);
     createUser(data.email, data.password)
       .then(result => {
         const user = result.user;
+        toast.success('User account created');
         setUser(data.name, data.email, data.role);
-        console.log(data.name, data.email, data.role);
-
+        // console.log(data.name, data.email, data.role);
         const userInformation = {
           displayName: data.name,
         };
         updateUser(userInformation)
-          .then(() => {})
+          .then((d) => {
+            
+            // console.log(data.name, data.email, data.role);
+          })
           .catch(error => console.log(error));
 
-        navigate('/');
         setError('');
       })
       .catch(error => {
@@ -41,7 +51,7 @@ const Register = () => {
 
   const setUser = (name, email, role) => {
     const user = { name, email, role };
-    fetch('https://server-site-lake.vercel.app/users', {
+    fetch('http://localhost:5000/users', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
@@ -51,8 +61,14 @@ const Register = () => {
       .then(res => res.json())
       .then(data => {
         console.log(data);
+        setUserEmail(email)
+        navigate('/');
+
+        // ------------------
       });
   };
+
+  
 
   const handleFacebook = () => {
     signUpFacebook(facebookProvider)
