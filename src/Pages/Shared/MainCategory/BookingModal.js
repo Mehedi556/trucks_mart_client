@@ -5,6 +5,8 @@ import Loader from '../Loader/Loader';
 
 const BookingModal = ({ truckItem, setTruckItem }) => {
   const { loading, user } = useContext(AuthContext);
+  // console.log(truckItem);
+  const {} = truckItem;
 
   const handleBooking = event => {
     event.preventDefault();
@@ -15,11 +17,45 @@ const BookingModal = ({ truckItem, setTruckItem }) => {
     const email = form.email.value;
     const number = form.number.value;
     const location = form.location.value;
+    const image = truckItem.image;
 
-    console.log(truckName, price, name, email, number, location);
+     const datas = {
+  truckName,
+  price,
+  name,
+  email,
+  number,
+  location,
+  image
+}
+ordersFunction(datas)
+    // console.log(truckName, price, email, number, location , name , image);
     toast.success('Selected Truck is Booked..');
     setTruckItem(null);
   };
+
+const ordersFunction = (data) => {
+  // const singleItem = data;
+console.log(data)
+
+  fetch('http://localhost:5000/myorders' , {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body:  JSON.stringify(data),
+    })
+    .then(res => res.json())
+      .then(data => {
+        
+        console.log(data);
+        
+      });
+
+    }
+
+
+
 
   // const {data: users = [] } = useQuery({
   //   queryKey: ['users'],
@@ -52,7 +88,7 @@ const BookingModal = ({ truckItem, setTruckItem }) => {
               type="text"
               placeholder="Truck Name"
               className="input input-bordered "
-              defaultValue={`Truck Name: ${truckItem?.name}`}
+              defaultValue={`${truckItem?.name}`}
               readOnly
             />
             <input
@@ -60,16 +96,16 @@ const BookingModal = ({ truckItem, setTruckItem }) => {
               type="text"
               placeholder="Price"
               className="input input-bordered "
-              defaultValue={`Truck Price: ${truckItem?.resale_price}$`}
+              defaultValue={`${truckItem?.resale_price}`}
               readOnly
             />
-            {/* <input name="name" type="text" placeholder="Your Name" className="input input-bordered " defaultValue={`Buyer Name: ${user?.displayName}`} readOnly/> */}
+            <input name="name" type="text" placeholder="Your Name" className="input input-bordered " defaultValue={`${user?.displayName}`} readOnly/>
             <input
               name="email"
               type="text"
               placeholder="Your Email"
               className="input input-bordered "
-              defaultValue={`Buyer Email: ${user?.email}`}
+              defaultValue={`${user?.email}`}
               readOnly
             />
             <input
@@ -85,11 +121,14 @@ const BookingModal = ({ truckItem, setTruckItem }) => {
               className="input input-bordered "
             />
             <div className="flex items-center justify-center pt-5">
+            <button onClick={ordersFunction}>
               <input
                 className="btn btn-wide btn-primary flex items-center"
                 type="submit"
                 value="Submit"
               />
+            </button>
+              
             </div>
           </form>
         </div>

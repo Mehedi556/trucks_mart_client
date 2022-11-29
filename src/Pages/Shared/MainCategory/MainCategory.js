@@ -8,9 +8,10 @@ import SingleCategory from './SingleCategory';
 const MainCategory = () => {
   const { loading } = useContext(AuthContext);
   const [truckItem, setTruckItem] = useState(null);
+  // console.log(truckItem);
 
   const details = useLoaderData();
-  // console.log(details);
+  // 
 
   // useEffect( async () => {
   //   const res = await fetch(`http://localhost:5000/productDetails/${}`)

@@ -30,14 +30,12 @@ const Register = () => {
         const user = result.user;
         toast.success('User account created');
         setUser(data.name, data.email, data.role);
-        // console.log(data.name, data.email, data.role);
+        console.log(data.name, data.email, data.role);
         const userInformation = {
           displayName: data.name,
         };
         updateUser(userInformation)
-          .then((d) => {
-            
-            // console.log(data.name, data.email, data.role);
+          .then(() => {
           })
           .catch(error => console.log(error));
 

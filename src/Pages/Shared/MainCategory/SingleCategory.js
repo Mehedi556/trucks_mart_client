@@ -53,9 +53,9 @@ const SingleCategory = ({data , setTruckItem}) => {
           
          
           <div className="card-actions justify-end">
-            <button onClick={() => ordersFunction(data)}>
+            
               <label onClick={() => setTruckItem(data)} htmlFor="booking-modal" className="btn btn-primary">Book Now</label>
-            </button>
+           
               
           </div>
         </div>
