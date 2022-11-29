@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Contexts/AuthProvider';
 import Loader from '../../Shared/Loader/Loader';
@@ -25,6 +26,31 @@ const MyProducts = () => {
     },
   });
 
+  
+
+  const advertiseFunction = (product) => {
+    const items = product;
+    fetch('http://localhost:5000/advertise' , {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body:  JSON.stringify(items),
+    })
+    .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        toast.success('Your post is added for Advertise');
+        // if(acknowledged === true){
+        //   
+        // }
+      });
+  }
+
+
+
+
+
   if (isLoading) {
     return <Loader></Loader>;
   }else if( products.length === 0 ){
@@ -32,7 +58,7 @@ const MyProducts = () => {
   }
     
   if(products.length > 0){
-    refetch()
+    refetch();
   }
 
   return (
@@ -53,7 +79,7 @@ const MyProducts = () => {
                 <button className="btn bg-red-700 border-0">Delete item</button>
               </Link>
               <Link to={`/maincategory/${product?.category_id}`}>
-                <button className="btn border-0 btn-primary">Advertise</button>
+                <button onClick={() => advertiseFunction(product)} className="btn border-0 btn-primary">Advertise</button>
               </Link>
             </div>
           </div>

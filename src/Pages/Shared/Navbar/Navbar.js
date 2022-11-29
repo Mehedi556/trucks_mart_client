@@ -3,13 +3,16 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Contexts/AuthProvider';
 import truck from '../../../assets/truck.png'
 import useAdmin from '../../../Hookes/UseAdmin';
+import useSeller from '../../../Hookes/UseSeller';
 
 const Navbar = () => {
   const { logOut , user } = useContext(AuthContext);
   const [isAdmin] = useAdmin(user?.email);
+  const [isSeller] = useSeller(user?.email);
 
   const handleLogOut = () => {
     logOut()
+
     .then(() => {})
     .catch((error) => {
       console.log(error);
@@ -19,9 +22,15 @@ const Navbar = () => {
     const menuItems = <>
     <li className='font-bold'><Link to="/">Home</Link></li>
     <li className='font-bold'><Link to="/blog">Blog</Link></li>
-    <li className='font-bold'><Link to="/dashboardLayout/dashboard">Dashboard</Link></li>
-    <li className='font-bold'><Link to="/dashboardLayout/addproduct">Add Product</Link></li>
-    <li className='font-bold'><Link to="/dashboardLayout/myproducts">My Products</Link></li>
+    <li className='font-bold'><Link to="/dashboardLayout/myorders">My Orders</Link></li>
+
+    {
+      isSeller && 
+      <>
+      <li className='font-bold'><Link to="/dashboardLayout/addproduct">Add Product</Link></li>
+      <li className='font-bold'><Link to="/dashboardLayout/myproducts">My Products</Link></li>
+      </>
+    }
 
     {
       isAdmin && <>

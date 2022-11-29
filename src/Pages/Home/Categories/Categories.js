@@ -22,7 +22,7 @@ const Categories = () => {
   }
 
   return (
-    <div className="pt-16" style={{ backgroundColor: '#ECF4E7' }}>
+    <div className="my-5 p-9 rounded-xl" style={{ backgroundColor: '#ECF4E7' }}>
       <div className="text-center">
         <h2 className="text-4xl font-bold font-mono pb-8">
           Are you looking for <br /> used truck from expensive brands? <br />{' '}

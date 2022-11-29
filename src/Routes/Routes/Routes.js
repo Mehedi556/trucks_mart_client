@@ -5,12 +5,15 @@ import Blog from '../../Pages/Blog/Blog';
 import AddProduct from '../../Pages/Dashboard/AddProduct/AddProduct';
 import AllMembers from '../../Pages/Dashboard/AllMembers/AllMembers';
 import Dashboard from '../../Pages/Dashboard/Dashboard/Dashboard';
+import MyOrders from '../../Pages/Dashboard/MyOrders/MyOrders';
 import MyProducts from '../../Pages/Dashboard/MyProducts/MyProducts';
+import Error from '../../Pages/Error/Error';
 
 import Home from '../../Pages/Home/Home/Home';
 import Login from '../../Pages/Login/Login';
 import Register from '../../Pages/Register/Register';
 import MainCategory from '../../Pages/Shared/MainCategory/MainCategory';
+import AdminRoute from '../AdminRoute/AdminRoute';
 
 import PrivetRoute from '../PrivetRoute/PrivetRoute';
 
@@ -44,7 +47,12 @@ export const router = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(`http://localhost:5000/productDetails/${params.id}`),
-      },
+      }
+      ,
+      {
+        path: '*',
+        element: <Error></Error>
+      }
     ],
   },
   {
@@ -57,20 +65,32 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '/dashboardLayout/dashboard',
-        element: <Dashboard></Dashboard>,
+        element: <Dashboard></Dashboard>
       },
       {
         path: '/dashboardLayout/addproduct',
-        element: <AddProduct></AddProduct>,
+        element: <AddProduct></AddProduct>
       },
       {
         path: '/dashboardLayout/myproducts',
-        element: <MyProducts></MyProducts>,
-      },
+        element: <MyProducts></MyProducts>
+      }
+      ,
       {
         path: '/dashboardLayout/allmembers',
-        element: <AllMembers></AllMembers>,
-      },
-    ],
+        element: <AdminRoute><AllMembers></AllMembers></AdminRoute>
+      }
+      ,
+      {
+        path: '/dashboardLayout/myorders',
+        element: <MyOrders></MyOrders>
+      }
+      ,
+      {
+        path: '*',
+        element: <Error></Error>
+      }
+    ]
+
   },
 ]);
