@@ -24,7 +24,7 @@ const Categories = () => {
   return (
     <div className="my-5 p-9 rounded-xl" style={{ backgroundColor: '#ECF4E7' }}>
       <div className="text-center">
-        <h2 className="text-4xl font-bold font-mono pb-8">
+        <h2 className="text-4xl font-bold  pb-8">
           Are you looking for <br /> used truck from expensive brands? <br />{' '}
           Get into your favorite brand from here and pick the trucks you like
           the most!!

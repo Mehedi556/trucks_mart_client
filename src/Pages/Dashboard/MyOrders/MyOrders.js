@@ -35,7 +35,7 @@ const MyOrders = () => {
         </div>
         <div
   style={{ backgroundColor: '#ECF4E7' }}
-  className="grid grid-cols-1 rounded-xl md:grid-cols-2 lg:grid-cols-3 gap-5 my-5 py-9 px-9 p-5">
+  className="grid grid-cols-1 rounded-xl md:grid-cols-2  gap-5 my-5 py-9 px-9 p-5">
   {
   products &&
   products?.map(product => (

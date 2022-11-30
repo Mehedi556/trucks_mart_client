@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
-
+import tick from '../../../assets/tick.png'
 import { AuthContext } from '../../../Contexts/AuthProvider';
 import Loader from '../Loader/Loader';
 
 
 const SingleCategory = ({data , setTruckItem}) => {
     const {loading} = useContext(AuthContext);
-    const {image , name , location , resale_price , original_price , years_of_use , sellers_name , year_of_purchase} = data;
+    const {image , name , location , resale_price , original_price , years_of_use , sellers_name , year_of_purchase } = data;
 
     const ordersFunction = (data) => {
       const orderItem = data;
@@ -46,7 +46,14 @@ const SingleCategory = ({data , setTruckItem}) => {
                 <p>LOCATION: {location}</p>
                 <p>ORIGINAL PRICE: ${original_price}</p>
                 <p>RESALE PRICE: ${resale_price}</p>
-                <p>SELLERS NAME: {sellers_name}</p>
+                <div className='flex'>
+                  <p>SELLERS NAME: {sellers_name}</p>
+                  {
+                  data?.status === 'verified' && <img className='w-[35px]' src={tick} alt="" />
+                  }
+                  
+                </div>
+                
                 <p>YEARS OF USE: {years_of_use} years</p>
                 <p>YEAR OF PURCHASE DATE: {year_of_purchase}</p>
             </div>

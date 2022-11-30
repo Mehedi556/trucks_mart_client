@@ -9,11 +9,7 @@ const AllMembers = () => {
     setDeleteItem(null);
   };
 
-  const {
-    data: members,
-    isLoading,
-    refetch,
-  } = useQuery({
+  const {data: members, isLoading, refetch } = useQuery({
     queryKey: ['members'],
     queryFn: async () => {
       try {
@@ -27,9 +23,10 @@ const AllMembers = () => {
       }
     },
   });
+  console.log(members)
 
-  const handleVerify = (id) => {
-    fetch(`http://localhost:5000/users/verify/${id}` , {
+  const handleVerify = (email) => {
+    fetch(`http://localhost:5000/users/verify/${email}` , {
       method: 'PUT'
     })
     .then(res => res.json())
@@ -77,7 +74,14 @@ const AllMembers = () => {
                 <td>{member.role}</td>
 
 
-                <td><button onClick={ () => handleVerify(member._id)} className='btn btn-sm bg-green-800'>Verify Seller</button></td>
+                
+                  
+                  <td>
+                    {
+                      member?.status !== 'verified' &&
+                    <button onClick={ () => handleVerify(member?.email)} className='btn btn-sm bg-green-800'>Verify Seller</button>
+                    }
+                  </td>
 
 
                 <td>
