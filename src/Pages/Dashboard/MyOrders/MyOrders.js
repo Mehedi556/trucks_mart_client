@@ -53,7 +53,7 @@ const MyOrders = () => {
           </Link>
           }
           {
-            product.price && product.paid && <span className='text-primary'>Paid</span>
+            product.price && product.paid && <span className='text-green-500'>Paid</span>
           }
           
         </div>
