@@ -4,6 +4,7 @@ import MainLayout from '../../Layout/MainLayout';
 import Blog from '../../Pages/Blog/Blog';
 import AddProduct from '../../Pages/Dashboard/AddProduct/AddProduct';
 import AllMembers from '../../Pages/Dashboard/AllMembers/AllMembers';
+import AllUsers from '../../Pages/Dashboard/AllMembers/AllUsers';
 import Dashboard from '../../Pages/Dashboard/Dashboard/Dashboard';
 import MyOrders from '../../Pages/Dashboard/MyOrders/MyOrders';
 import MyProducts from '../../Pages/Dashboard/MyProducts/MyProducts';
@@ -80,6 +81,11 @@ export const router = createBrowserRouter([
       {
         path: '/dashboardLayout/allmembers',
         element: <AdminRoute><AllMembers></AllMembers></AdminRoute>
+      }
+      ,
+      {
+        path: '/dashboardLayout/allusers',
+        element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
       }
       ,
       {

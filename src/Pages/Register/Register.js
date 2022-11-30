@@ -2,22 +2,19 @@ import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../Contexts/AuthProvider';
-import { FacebookAuthProvider } from 'firebase/auth';
+import { FacebookAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 import toast from 'react-hot-toast';
 import useToken from '../../Hookes/UseToken';
 
 const Register = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const {register, handleSubmit ,formState: { errors }} = useForm();
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const [userEmail , setUserEmail] = useState('');
   const [token] = useToken(userEmail);
   const facebookProvider = new FacebookAuthProvider();
-  const { createUser, signUpFacebook, updateUser } = useContext(AuthContext);
+  const googleProvider = new GoogleAuthProvider();
+  const { createUser, signUpFacebook, updateUser , signUpGoogle } = useContext(AuthContext);
 
   // if(token){
   //   navigate('/');
@@ -46,6 +43,22 @@ const Register = () => {
         setError(error.message);
       });
   };
+
+
+  const handleGoogleSignUp = () => {
+    signUpGoogle(googleProvider)
+    .then(result => {
+      const user = result.user;
+      console.log(user);
+      setUser(user.displayName , user.email , 'Buyer')
+    })
+    .catch(error => {
+      console.error(error);
+      setError(error.message);
+    });
+  }
+
+
 
   const setUser = (name, email, role) => {
     const user = { name, email, role };
@@ -176,6 +189,13 @@ const Register = () => {
                   className="btn mt-3 btn-outline btn-info text-black"
                 >
                   Continue with Facebook
+                </button>
+
+                <button
+                  onClick={handleGoogleSignUp}
+                  className="btn mt-3 btn-outline btn-info text-black"
+                >
+                  Continue with Google
                 </button>
               </div>
             </div>

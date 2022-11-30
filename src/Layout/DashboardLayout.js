@@ -11,7 +11,7 @@ const DashboardLayout = () => {
     const [isAdmin] = useAdmin(user?.email);
     const [isSeller] = useSeller(user?.email);
     const [isBuyer] = useBuyer(user?.email);
-    console.log(isBuyer);
+    // console.log(isBuyer);
 
 
     return (
@@ -36,7 +36,8 @@ const DashboardLayout = () => {
 
     {
       isAdmin && <>
-      <li className='font-bold'><Link to="/dashboardLayout/allmembers">All Members</Link></li>
+      <li className='font-bold'><Link to="/dashboardLayout/allmembers">All Sellers</Link></li>
+      <li className='font-bold'><Link to="/dashboardLayout/allusers">All Buyers</Link></li>
       </>
     }
 

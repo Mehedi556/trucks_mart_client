@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Loader from '../../Shared/Loader/Loader';
 import DeleteModal from './DeleteModal';
 
-const AllMembers = () => {
+const AllUsers = () => {
   const [deleteItem, setDeleteItem] = useState(null);
   const closeDeleteModal = () => {
     setDeleteItem(null);
@@ -17,7 +17,7 @@ const AllMembers = () => {
     queryKey: ['members'],
     queryFn: async () => {
       try {
-        const res = await fetch('http://localhost:5000/sellers', {
+        const res = await fetch('http://localhost:5000/buyers', {
           method: 'GET',
         });
         const data = await res.json();
@@ -27,16 +27,6 @@ const AllMembers = () => {
       }
     },
   });
-
-  const handleVerify = (id) => {
-    fetch(`http://localhost:5000/users/verify/${id}` , {
-      method: 'PUT'
-    })
-    .then(res => res.json())
-      .then(data => {
-        console.log(data);
-      });
-  }
 
   const handleDelete = member => {
     fetch(`http://localhost:5000/members/${member?._id}`, {
@@ -55,7 +45,7 @@ const AllMembers = () => {
 
   return (
     <div className="w-10/12 mx-auto">
-      <h2 className="text-3xl text-center font-bold my-9">All Sellers</h2>
+      <h2 className="text-3xl text-center font-bold my-9">All Buyers</h2>
       <div className="overflow-x-auto">
         <table className="table w-full">
           <thead>
@@ -64,7 +54,6 @@ const AllMembers = () => {
               <th>Name</th>
               <th>Email</th>
               <th>Role</th>
-              <th>Verify</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -75,11 +64,6 @@ const AllMembers = () => {
                 <td>{member.name}</td>
                 <td>{member.email}</td>
                 <td>{member.role}</td>
-
-
-                <td><button onClick={ () => handleVerify(member._id)} className='btn btn-sm bg-green-800'>Verify Seller</button></td>
-
-
                 <td>
                   <label
                     onClick={() => setDeleteItem(member)}
@@ -107,4 +91,4 @@ const AllMembers = () => {
   );
 };
 
-export default AllMembers;
+export default AllUsers;
