@@ -7,14 +7,19 @@ import toast from 'react-hot-toast';
 import useToken from '../../Hookes/UseToken';
 
 const Register = () => {
-  const {register, handleSubmit ,formState: { errors }} = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const [userEmail , setUserEmail] = useState('');
+  const [userEmail, setUserEmail] = useState('');
   const [token] = useToken(userEmail);
   const facebookProvider = new FacebookAuthProvider();
   const googleProvider = new GoogleAuthProvider();
-  const { createUser, signUpFacebook, updateUser , signUpGoogle } = useContext(AuthContext);
+  const { createUser, signUpFacebook, updateUser, signUpGoogle } =
+    useContext(AuthContext);
 
   // if(token){
   //   navigate('/');
@@ -32,8 +37,7 @@ const Register = () => {
           displayName: data.name,
         };
         updateUser(userInformation)
-          .then(() => {
-          })
+          .then(() => {})
           .catch(error => console.log(error));
 
         setError('');
@@ -44,25 +48,22 @@ const Register = () => {
       });
   };
 
-
   const handleGoogleSignUp = () => {
     signUpGoogle(googleProvider)
-    .then(result => {
-      const user = result.user;
-      console.log(user);
-      setUser(user.displayName , user.email , 'Buyer')
-    })
-    .catch(error => {
-      console.error(error);
-      setError(error.message);
-    });
-  }
-
-
+      .then(result => {
+        const user = result.user;
+        console.log(user);
+        setUser(user.displayName, user.email, 'Buyer');
+      })
+      .catch(error => {
+        console.error(error);
+        setError(error.message);
+      });
+  };
 
   const setUser = (name, email, role) => {
     const user = { name, email, role };
-    fetch('http://localhost:5000/users', {
+    fetch('https://server-site-lake.vercel.app/users', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
@@ -72,14 +73,12 @@ const Register = () => {
       .then(res => res.json())
       .then(data => {
         console.log(data);
-        setUserEmail(email)
+        setUserEmail(email);
         navigate('/');
 
         // ------------------
       });
   };
-
-  
 
   const handleFacebook = () => {
     signUpFacebook(facebookProvider)

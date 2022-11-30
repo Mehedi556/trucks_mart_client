@@ -22,7 +22,8 @@ const Navbar = () => {
     const menuItems = <>
     <li className='font-bold'><Link to="/">Home</Link></li>
     <li className='font-bold'><Link to="/blog">Blog</Link></li>
-    <li className='font-bold'><Link to="/dashboardLayout/dashboard">Dashboard</Link></li>
+
+    
 
     {/* {
       isSeller && 
@@ -41,8 +42,12 @@ const Navbar = () => {
 
 
     {
-      user?.uid ? 
+      user?.uid ? <>
+      <li className='font-bold'><Link to="/dashboardLayout/dashboard">Dashboard</Link></li>
       <li className='font-bold'><button onClick={handleLogOut}> Logout</button></li>
+
+      </>
+      
       :
       <li className='font-bold'><Link to="/login">Login</Link></li>
     }

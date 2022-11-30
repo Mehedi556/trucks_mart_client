@@ -11,10 +11,10 @@ const MainCategory = () => {
   // console.log(truckItem);
 
   const details = useLoaderData();
-  // 
+  //
 
   // useEffect( async () => {
-  //   const res = await fetch(`http://localhost:5000/productDetails/${}`)
+  //   const res = await fetch(`https://server-site-lake.vercel.app/productDetails/${}`)
   // } , [])
 
   if (loading) {

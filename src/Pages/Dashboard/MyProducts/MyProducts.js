@@ -9,55 +9,53 @@ import NoProducts from './NoProducts';
 const MyProducts = () => {
   const { user } = useContext(AuthContext);
 
-  const url = `http://localhost:5000/productDetails?email=${user?.email}`;
+  const url = `https://server-site-lake.vercel.app/productDetails?email=${user?.email}`;
 
-  const { data: products = [], isLoading , refetch } = useQuery({
+  const {
+    data: products = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ['productDetails', user?.email],
     queryFn: async () => {
-      const res = await fetch(url , {
+      const res = await fetch(url, {
         // headers: {
         //   authorization: `bearer ${localStorage.getItem('accessToken')}`
         // }
       });
       const data = await res.json();
       console.log(data);
-      
+
       return data;
     },
   });
 
-  
-
-  const advertiseFunction = (product) => {
+  const advertiseFunction = product => {
     const items = product;
-    fetch('http://localhost:5000/advertise' , {
+    fetch('https://server-site-lake.vercel.app/advertise', {
       method: 'POST',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
       },
-      body:  JSON.stringify(items),
+      body: JSON.stringify(items),
     })
-    .then(res => res.json())
+      .then(res => res.json())
       .then(data => {
         console.log(data);
         toast.success('Your post is added for Advertise');
         // if(acknowledged === true){
-        //   
+        //
         // }
       });
-  }
-
-
-
-
+  };
 
   if (isLoading) {
     return <Loader></Loader>;
-  }else if( products.length === 0 ){
-    return <NoProducts></NoProducts>
+  } else if (products.length === 0) {
+    return <NoProducts></NoProducts>;
   }
-    
-  if(products.length > 0){
+
+  if (products.length > 0) {
     refetch();
   }
 
@@ -79,7 +77,12 @@ const MyProducts = () => {
                 <button className="btn bg-red-700 border-0">Delete item</button>
               </Link>
               <Link to={`/maincategory/${product?.category_id}`}>
-                <button onClick={() => advertiseFunction(product)} className="btn border-0 btn-primary">Advertise</button>
+                <button
+                  onClick={() => advertiseFunction(product)}
+                  className="btn border-0 btn-primary"
+                >
+                  Advertise
+                </button>
               </Link>
             </div>
           </div>

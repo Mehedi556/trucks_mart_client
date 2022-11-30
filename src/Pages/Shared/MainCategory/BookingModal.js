@@ -19,48 +19,42 @@ const BookingModal = ({ truckItem, setTruckItem }) => {
     const location = form.location.value;
     const image = truckItem.image;
 
-     const datas = {
-  truckName,
-  price,
-  name,
-  email,
-  number,
-  location,
-  image
-}
-ordersFunction(datas)
+    const datas = {
+      truckName,
+      price,
+      name,
+      email,
+      number,
+      location,
+      image,
+    };
+    ordersFunction(datas);
     // console.log(truckName, price, email, number, location , name , image);
     toast.success('Selected Truck is Booked..');
     setTruckItem(null);
   };
 
-const ordersFunction = (data) => {
-  // const singleItem = data;
-console.log(data)
+  const ordersFunction = data => {
+    // const singleItem = data;
+    console.log(data);
 
-  fetch('http://localhost:5000/myorders' , {
+    fetch('https://server-site-lake.vercel.app/myorders', {
       method: 'POST',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
       },
-      body:  JSON.stringify(data),
+      body: JSON.stringify(data),
     })
-    .then(res => res.json())
+      .then(res => res.json())
       .then(data => {
-        
         console.log(data);
-        
       });
-
-    }
-
-
-
+  };
 
   // const {data: users = [] } = useQuery({
   //   queryKey: ['users'],
   //   queryFn: async () => {
-  //       const res = await fetch('http://localhost:5000/users');
+  //       const res = await fetch('https://server-site-lake.vercel.app/users');
   //       const data = res.json();
   //       return data;
   //   }
@@ -99,7 +93,14 @@ console.log(data)
               defaultValue={`${truckItem?.resale_price}`}
               readOnly
             />
-            <input name="name" type="text" placeholder="Your Name" className="input input-bordered " defaultValue={`${user?.displayName}`} readOnly/>
+            <input
+              name="name"
+              type="text"
+              placeholder="Your Name"
+              className="input input-bordered "
+              defaultValue={`${user?.displayName}`}
+              readOnly
+            />
             <input
               name="email"
               type="text"
@@ -121,14 +122,13 @@ console.log(data)
               className="input input-bordered "
             />
             <div className="flex items-center justify-center pt-5">
-            <button onClick={ordersFunction}>
-              <input
-                className="btn btn-wide btn-primary flex items-center"
-                type="submit"
-                value="Submit"
-              />
-            </button>
-              
+              <button onClick={ordersFunction}>
+                <input
+                  className="btn btn-wide btn-primary flex items-center"
+                  type="submit"
+                  value="Submit"
+                />
+              </button>
             </div>
           </form>
         </div>

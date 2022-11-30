@@ -9,11 +9,15 @@ const AllMembers = () => {
     setDeleteItem(null);
   };
 
-  const {data: members, isLoading, refetch } = useQuery({
+  const {
+    data: members,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ['members'],
     queryFn: async () => {
       try {
-        const res = await fetch('http://localhost:5000/sellers', {
+        const res = await fetch('https://server-site-lake.vercel.app/sellers', {
           method: 'GET',
         });
         const data = await res.json();
@@ -23,20 +27,20 @@ const AllMembers = () => {
       }
     },
   });
-  console.log(members)
+  console.log(members);
 
-  const handleVerify = (email) => {
-    fetch(`http://localhost:5000/users/verify/${email}` , {
-      method: 'PUT'
+  const handleVerify = email => {
+    fetch(`https://server-site-lake.vercel.app/users/verify/${email}`, {
+      method: 'PUT',
     })
-    .then(res => res.json())
+      .then(res => res.json())
       .then(data => {
         console.log(data);
       });
-  }
+  };
 
   const handleDelete = member => {
-    fetch(`http://localhost:5000/members/${member?._id}`, {
+    fetch(`https://server-site-lake.vercel.app/members/${member?._id}`, {
       method: 'DELETE',
     })
       .then(res => res.json())
@@ -73,16 +77,16 @@ const AllMembers = () => {
                 <td>{member.email}</td>
                 <td>{member.role}</td>
 
-
-                
-                  
-                  <td>
-                    {
-                      member?.status !== 'verified' &&
-                    <button onClick={ () => handleVerify(member?.email)} className='btn btn-sm bg-green-800'>Verify Seller</button>
-                    }
-                  </td>
-
+                <td>
+                  {member?.status !== 'verified' && (
+                    <button
+                      onClick={() => handleVerify(member?.email)}
+                      className="btn btn-sm bg-green-800"
+                    >
+                      Verify Seller
+                    </button>
+                  )}
+                </td>
 
                 <td>
                   <label

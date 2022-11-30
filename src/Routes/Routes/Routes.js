@@ -48,13 +48,14 @@ export const router = createBrowserRouter([
           </PrivetRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/productDetails/${params.id}`),
-      }
-      ,
+          fetch(
+            `https://server-site-lake.vercel.app/productDetails/${params.id}`
+          ),
+      },
       {
         path: '*',
-        element: <Error></Error>
-      }
+        element: <Error></Error>,
+      },
     ],
   },
   {
@@ -67,43 +68,46 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '/dashboardLayout/dashboard',
-        element: <Dashboard></Dashboard>
+        element: <Dashboard></Dashboard>,
       },
       {
         path: '/dashboardLayout/addproduct',
-        element: <AddProduct></AddProduct>
+        element: <AddProduct></AddProduct>,
       },
       {
         path: '/dashboardLayout/myproducts',
-        element: <MyProducts></MyProducts>
-      }
-      ,
+        element: <MyProducts></MyProducts>,
+      },
       {
         path: '/dashboardLayout/allmembers',
-        element: <AdminRoute><AllMembers></AllMembers></AdminRoute>
-      }
-      ,
+        element: (
+          <AdminRoute>
+            <AllMembers></AllMembers>
+          </AdminRoute>
+        ),
+      },
       {
         path: '/dashboardLayout/allusers',
-        element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
-      }
-      ,
+        element: (
+          <AdminRoute>
+            <AllUsers></AllUsers>
+          </AdminRoute>
+        ),
+      },
       {
         path: '/dashboardLayout/myorders',
-        element: <MyOrders></MyOrders>
-      }
-      ,
+        element: <MyOrders></MyOrders>,
+      },
       {
         path: '/dashboardLayout/payment/:id',
         element: <Payment></Payment>,
-        loader: ({params}) => fetch(`http://localhost:5000/orders/${params.id}`)
-      }
-      ,
+        loader: ({ params }) =>
+          fetch(`https://server-site-lake.vercel.app/orders/${params.id}`),
+      },
       {
         path: '*',
-        element: <Error></Error>
-      }
-    ]
-
+        element: <Error></Error>,
+      },
+    ],
   },
 ]);
