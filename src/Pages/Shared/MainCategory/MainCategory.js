@@ -24,7 +24,7 @@ const MainCategory = () => {
   return (
     <div
       style={{ backgroundColor: '#ECF4E7' }}
-      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mx-auto p-5 w-10/12"
+      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mx-auto p-5 "
     >
       {details?.map(data => (
         <SingleCategory

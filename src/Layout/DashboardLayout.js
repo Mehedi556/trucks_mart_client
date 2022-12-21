@@ -15,7 +15,7 @@ const DashboardLayout = () => {
 
 
     return (
-        <div style={{backgroundColor: "#ECF4E7"}} className='w-10/12 mx-auto'>
+        <div style={{backgroundColor: "#ECF4E7"}} className='w-11/12 mx-auto'>
             <Navbar></Navbar>
             <div className="drawer drawer-mobile">
   <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />

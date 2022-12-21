@@ -28,15 +28,15 @@ const MyOrders = () => {
 
   return (
     <div
-      className="my-16 p-5 pt-10 rounded-xl w-10/12 mx-auto"
+      className="my-16 p-5 pt-10 rounded-xl mx-auto"
       style={{ backgroundColor: '#ECF4E7' }}
     >
       <div className="text-center">
-        <h2 className="text-4xl font-bold font-mono pb-3">My Booking Items</h2>
+        <h2 className="text-4xl font-bold font-mono pb-3">Booked Items</h2>
       </div>
       <div
         style={{ backgroundColor: '#ECF4E7' }}
-        className="grid grid-cols-1 rounded-xl md:grid-cols-2  gap-5 my-5 py-9 px-9 p-5"
+        className="grid grid-cols-1 rounded-xl md:grid-cols-2 gap-5 my-5 py-9 px-9 p-5"
       >
         {products &&
           products?.map(product => (

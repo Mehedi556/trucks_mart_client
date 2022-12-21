@@ -62,7 +62,7 @@ const MyProducts = () => {
   return (
     <div
       style={{ backgroundColor: '#ECF4E7' }}
-      className="grid grid-cols-1 rounded-xl md:grid-cols-2 lg:grid-cols-3 gap-5 my-5 py-9 px-9 w-10/12 mx-auto p-5"
+      className="grid grid-cols-1 rounded-xl md:grid-cols-2 lg:grid-cols-2 gap-5 my-5 py-9 px-9 mx-auto p-5"
     >
       {products.map(product => (
         <div key={product?._id} className="card bg-base-100 h-[100%] shadow-xl">

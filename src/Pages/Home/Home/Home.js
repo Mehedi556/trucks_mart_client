@@ -22,7 +22,7 @@ const Home = () => {
       });
   }, [user?.email]);
   return (
-    <div className="w-10/12 mx-auto">
+    <div className="">
       <Banner></Banner>
       <Categories></Categories>
       {products.length > 0 && <AdvertiseSection></AdvertiseSection>}

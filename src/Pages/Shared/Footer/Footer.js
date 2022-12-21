@@ -3,7 +3,7 @@ import truck from '../../../assets/truck.png'
 
 const Footer = () => {
     return (
-        <footer style={{backgroundColor: "#ECF4E7"}} className="footer footer-center p-10  text-base-content rounded w-10/12 mx-auto">
+        <footer style={{backgroundColor: "#ECF4E7"}} className="footer footer-center p-10  text-base-content rounded mx-auto">
 
           <div>
             <img className='w-[60px]' src={truck} alt="" />

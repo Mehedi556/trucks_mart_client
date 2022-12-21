@@ -43,7 +43,7 @@ const Login = () => {
 
 
     return (
-        <form style={{backgroundColor: "#ECF4E7"}} onSubmit={handleSubmit(handleLogin)} className='rounded-2xl mx-auto w-10/12'>
+        <form style={{backgroundColor: "#ECF4E7"}} onSubmit={handleSubmit(handleLogin)} className='rounded-2xl mx-auto '>
         <div className="hero my-24 p-5 rounded-xl w-full">
   <div className="hero-content flex-col lg:flex-row">
   <div className="text-center lg:text-left">
